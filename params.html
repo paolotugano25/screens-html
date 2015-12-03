@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://cdn.jsdelivr.net/g/uri.js@1.17.0,hi-base64@0.2.0"></script>
+</head>
+
+<body>
+<pre><script>
+    document.write("document.location.href:\n")
+    document.write(document.location.href, "\n\n");
+
+    document.write("uri query:\n")
+    document.write(new URI().query(), "\n");
+    var query = new URI().query(true);
+    document.write(JSON.stringify(query), "\n\n");
+
+    if (query.base64) {
+        document.write(base64.decode(query.base64), "\n");
+        document.write(JSON.stringify(JSON.parse(base64.decode(query.base64))), "\n");
+    }
+</script></pre>
+</body>
+</html>

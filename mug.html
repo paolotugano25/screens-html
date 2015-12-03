@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="mug.js"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Oswald';
+            font-style: normal;
+            font-weight: 400;
+            src: url(Y_TKV6o8WovbUd3m_X9aAA.ttf) format('truetype');
+        }
+
+        .slabtexted .slabtext {
+            display: -moz-inline-box;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .slabtextinactive .slabtext {
+            display: inline;
+            white-space: normal;
+            font-size: 1em !important;
+            letter-spacing: inherit !important;
+            word-spacing: inherit !important;
+            *letter-spacing: 0 !important;
+            *word-spacing: 0 !important;
+        }
+
+        .slabtextdone .slabtext {
+            display: block;
+        }
+
+        #left {
+            position: absolute;
+            top: 200px;
+            left: 400px;
+            width: 1000px;
+            font-size: 58px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #outer {
+            position: relative;
+            font-family: 'Oswald', sans-serif;
+            width: 2775px;
+            height: 1200px;
+        }
+
+        #right {
+            position: absolute;
+            width: 500px;
+            right: 500px;
+            bottom: 200px;
+        }
+
+        #right img {
+            width: 500px;
+        }
+    </style>
+    <script>
+        $(function () {
+            var params = URI().query(true);
+            if (params.base64) {
+                params = JSON.parse(base64.decode(params.base64));
+            }
+
+            if (params.word) {
+                $(".slabtext").html(params.word);
+            }
+
+            $(".slabtext").slabText({});
+        })
+    </script>
+</head>
+
+<body>
+<div id="outer">
+    <div id="left">
+        <div class="slabtext">DIDN'T DO LIST</div>
+    </div>
+    <div id="right">
+        <img src="big-logo.png"/>
+    </div>
+</div>
+</body>
+</html>

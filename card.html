@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="card.js"></script>
+    <script>
+        $(function () {
+            var params = URI().query(true);
+            if (params.base64) {
+                params = JSON.parse(base64.decode(params.base64));
+            }
+
+            if (params.random) {
+                var response = $.ajax({url: "http://api.urbandictionary.com/v0/random", async: false});
+                var definition = response.responseJSON.list[0];
+                $("#word").text(definition.word);
+                $("#meaning").text(definition.definition);
+            } else {
+                $("#word").html(params.word);
+                $("#meaning").html(params.meaning);
+            }
+
+            params.background = params.background || "backgrounds/background" + Math.floor((Math.random() * 23) + 1) + ".png";
+            $("body").css("background-image", "url(" + params.background + ")");
+
+            WebFont.load({
+                custom: {
+                    families: ['Lora', 'Source Sans Pro']
+                },
+                active: function () {
+                    var $meaning = $("#meaning");
+                    $meaning.height($(window).height() - $meaning.offset().top - 30);
+                    $meaning.dotdotdot();
+                }
+            });
+        });
+    </script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Lora';
+            font-style: normal;
+            font-weight: 700;
+            src: url(rapsGf8n-DpRu9kcmAAciA.ttf) format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Source Sans Pro';
+            font-style: normal;
+            font-weight: 400;
+            src: url(ODelI1aHBYDBqgeIAH2zlNzbP97U9sKh0jjxbPbfOKg.ttf) format('truetype');
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            color: white;
+            overflow: hidden;
+            background-size: cover;
+            word-wrap: break-word;
+        }
+
+        #word {
+            font-family: 'Lora';
+            font-size: 56px;
+        }
+
+        #meaning {
+            font-family: 'Source Sans Pro';
+            font-size: 36px;
+        }
+
+        #word, #meaning {
+            text-shadow: 1px 1px 1px #272727;
+        }
+
+        #logo {
+            -webkit-filter: drop-shadow(1px 1px 1px #272727);
+            filter: drop-shadow(1px 1px 1px #272727);
+            margin-top: 10px;
+        }
+
+        #overlay, table {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        #overlay {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+
+        td {
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="overlay"></div>
+<table width="100%" height="100%">
+    <tr id="top" valign="top">
+        <td id="word"></td>
+        <td id="logo" align="right">
+            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="48" viewBox="0 0 301 193">
+                <path d="M23 63.4s5.1 5.8 5.7 11.1c.5 5.4.6 9.7.2 15.1-.4 5.3-1.9 12.2-1.9 18.5 0 6.3 1 8.9 1.5 12.3.6 3.3 1 3.8.7 9-.3 5.2-1.2 26.5-1.2 26.5l-.8 16.6 3.3 8.2 4.3-4.6s.9 3.1 3.4 6.3c2.4 3.2 9.5 7.1 9.5 7.1l9.5 3.5 31.5-14.6s4.3 3.4 7.4 4.8c3 1.4 13 6.3 17.9 7.7 4.9 1.3 8.1 2.1 12.1 2.1 3.9 0 7.9-1.2 12.2-2.8 4.4-1.5 9.3-3.6 9.3-3.6l2.4-13.4-23.4-17.3-4.6 4.3s-2.2-18.8-3.3-28.3c-1-9.5-2.8-23.2-2.8-23.2l2.7-2.6s-2.4-17.3-2.7-22c-.3-4.8 2-15.5 2.3-18 .3-2.4.8-8.4.8-8.4l-2.8-8.1-6.6-3.4-7.4 3.4L88.4 43l-13.5 7.7 1.3 9.2 21.3-.2 8.5 6.9-.3 6.4-3.2 3.1s-.6 10.9-1.1 18.4c-.6 7.4-1.2 16.1-2.3 25.9-1.3 11.1-3.3 21.1-5.9 29.8 0 0-11.8 8.3-17.6 10.7-8.8 3.5-17 3.7-17 3.7l-14.2-6.2c-2.4-14.6-3.9-26.8-4.6-36.7-.5-2.8-.7-4.7-.3-8.5.5-3.8 2.4-15.8 2.4-15.8l-2.8-3s2.4-13.6 2.9-17.7c.6-4 1.3-8.7 1.7-12.5.3-3.8.7-6.6.7-6.6l-2.5-7.7s-8.2-3.2-11.3-4c-3.2-.8-8.2-2.6-8.2-2.6s-5.6-.1-8.3.4c-2.7.5-8.3.6-8.3.6L0 51.5s1.4 3 2.2 4.9c.7 1.9 1.3 2.6 1.3 2.6l2.8.8 3.5 5.9s3.6.1 7.1-.7c3.5-.8 6.1-1.6 6.1-1.6m197.1 14.4c-1.6-.2-.8-.2-3.1.2-2.3.3-2.2-1.2-6.3-1.2s-1.9.7-7.4 1.1c-5.5.4-5.5-.5-5.5-.5s-3.4 5.2-7 9.4c-3.6 4.3-7.3 9.3-7.3 9.3s0 2.3-.8 6.6c-.9 4.4-1.6 7.8-1.6 9.4 0 1.6.9 3.3.9 3.3s-1.2 2.9-2.1 7.3c-.8 4.3-2.4 8.5-2.4 8.5s.5 4.7 1.5 10.1c.9 5.4 1.8 12.1 1.8 12.1s2.6 2.2 5.7 6.4c3 4.1 5.3 8.4 5.3 8.4s3.5 1.6 7.4 4.5c3.9 2.9 5.1 4.5 5.1 4.5s5.1-.5 8.7-2.1c3.6-1.7 10-5.2 18.3-11.6 8.4-6.4 14.8-15.8 14.8-15.8s-.3-2.5-.7-6.6c-.3-4 .8-3.5 1.2-7.6.4-4 .2-6.3-1.9-15.5s-3.7-13.1-10.4-24.3c-6.8-11.3-11.7-16-11.7-16s-1 .3-2.5.1zm78.1-70.9c-2.2-3.4-3.1-5.5-6.4-6.6-3-1-11.1.9-23.8 1.1-8 .1-19.7 1.3-19.7 1.3s-1.3 3-2.6 5c-1.3 1.9-3.2 6.1-3.2 6.1l3.8 14.6-3.7 9.4 5.9 28.7-2 4.4-7.3.2s-1.5-2.7-3.1-4.3c-1.6-1.6-7.1-6.6-11.4-9.1-4.4-2.5-9.2-4.1-11.9-4.6-2.6-.5-3 .1-4.6-.5-1.6-.7-2.7-.4-5.7-.5-3 0-5.5.9-8.2 1-2.6.2-4.5 0-4.5 0l-10.9 3.4s-2.6 8.4-5.5 12.8-5.2 7.1-5.2 7.1l-12.3 14.4s-.2 4.9-.9 10.1c-.7 5.1-1.4 14.4-1.4 14.4l-2.6 2.3s1.6 12.5 3.1 20.3c1.5 7.8 4.5 16.2 7.8 23.4 3.2 7.3 6.1 11.7 11.7 18.9 5.7 7.1 14.7 12.8 14.7 12.8l41.9-.5 4.7-6.5 10.8.1 6.1 5.1s12 .2 12.4.2c.5 0-1.7-16.4-2.1-22.8-.5-6.5-1.6-14.1-.9-19.7.7-5.5 1.2-8.6 2.6-14.1 1.3-5.6 2.5-12.3 2.6-19.7.1-7.4-.2-12.1-.8-22.6-.6-10.5-1.8-24.2-1.7-28.2 0-4 .8-6.9 2-13.4s4.4-19.5 4.4-19.5 6.5-1.1 9.9-2.2c3.4-1 5.5-2 11.5-5.6 6.1-3.6 9.3-10.3 9.3-10.3s-.7-3-2.8-6.4z"
+                      fill="#FFF" fill-rule="evenodd"/>
+            </svg>
+        </td>
+    </tr>
+    <tr>
+        <td valign="bottom" colspan="2">
+            <div id="meaning"></div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
