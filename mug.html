@@ -7,38 +7,36 @@
     <script src="mug.js"></script>
     <style type="text/css">
         @font-face {
-            font-family: 'Oswald';
+            font-family: 'Lora';
+            font-style: normal;
+            font-weight: 700;
+            src: url(rapsGf8n-DpRu9kcmAAciA.ttf) format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Source Sans Pro';
             font-style: normal;
             font-weight: 400;
-            src: url(Y_TKV6o8WovbUd3m_X9aAA.ttf) format('truetype');
-        }
-
-        .slabtexted .slabtext {
-            display: -moz-inline-box;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .slabtextinactive .slabtext {
-            display: inline;
-            white-space: normal;
-            font-size: 1em !important;
-            letter-spacing: inherit !important;
-            word-spacing: inherit !important;
-            *letter-spacing: 0 !important;
-            *word-spacing: 0 !important;
-        }
-
-        .slabtextdone .slabtext {
-            display: block;
+            src: url(ODelI1aHBYDBqgeIAH2zlNzbP97U9sKh0jjxbPbfOKg.ttf) format('truetype');
         }
 
         #left {
             position: absolute;
             top: 200px;
-            left: 400px;
-            width: 1000px;
-            font-size: 58px;
+            left: 300px;
+            width: 1500px;
+        }
+
+        #word {
+            font-family: 'Lora';
+            font-size: 100px;
+        }
+
+        #meaning {
+            margin-top: 50px;
+            margin-left: 50px;
+            font-size: 70px;
+            line-height: 1.5em;
         }
 
         body {
@@ -48,7 +46,7 @@
 
         #outer {
             position: relative;
-            font-family: 'Oswald', sans-serif;
+            font-family: 'Source Sans Pro';
             width: 2775px;
             height: 1200px;
         }
@@ -56,7 +54,7 @@
         #right {
             position: absolute;
             width: 500px;
-            right: 500px;
+            right: 200px;
             bottom: 200px;
         }
 
@@ -70,12 +68,15 @@
             if (params.base64) {
                 params = JSON.parse(base64.decode(params.base64));
             }
-
-            if (params.word) {
-                $(".slabtext").html(params.word);
+            if (params.random) {
+                var response = $.ajax({url: "http://api.urbandictionary.com/v0/random", async: false});
+                var definition = response.responseJSON.list[0];
+                $("#word").text(definition.word);
+                $("#meaning").text(definition.definition);
+            } else {
+                $("#word").html(params.word);
+                $("#meaning").html(params.meaning);
             }
-
-            $(".slabtext").slabText({});
         })
     </script>
 </head>
@@ -83,7 +84,8 @@
 <body>
 <div id="outer">
     <div id="left">
-        <div class="slabtext">DIDN'T DO LIST</div>
+        <div id="word"></div>
+        <div id="meaning"></div>
     </div>
     <div id="right">
         <img src="big-logo.png"/>
