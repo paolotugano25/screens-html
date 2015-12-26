@@ -64,7 +64,7 @@
     <script>
         $(function () {
             var params = URI().query(true);
-            params.fontSize = params.fontSize || "70px";
+            params.fontSize = params.fontSize || 70;
             if (params.base64) {
                 params = JSON.parse(base64.decode(params.base64));
             }
@@ -78,7 +78,7 @@
                 $("#meaning").html(params.meaning);
             }
 
-            $("#meaning").css("fontSize", params.fontSize);
+            $("#meaning").css("fontSize", params.fontSize + "px");
         })
     </script>
 </head>
