@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <script src="https://cdn.jsdelivr.net/g/uri.js@1.17.0,jquery@2.1.4"></script>
+    <script src="https://cdn.jsdelivr.net/g/uri.js@1.17.0,jquery@2.1.4,hi-base64@0.2.0"></script>
     <style>
         body {
             background-color: lightgray;
@@ -21,9 +21,13 @@
 <div id="main"></div>
 
 <script>
-    var htmlUrl = new URI().path("mug.html").query({word: "cv zv kjhvzc klxczv c lchz"});
-    var imageUrl = new URI().port(8891).path("").query({url: htmlUrl, force: true}).toString();
-    $("#main").html($("<img>").attr("src", imageUrl))
+    $.getJSON("/mug-test.json", function (response) {
+        $.each(response.list, function (index, value) {
+            var htmlUrl = new URI().path("mug.html").query({base64: base64.encode(JSON.stringify({word: value.word, meaning: value.definition}))});
+            var imageUrl = new URI().port(8891).path("").query({url: htmlUrl, force: true}).toString();
+            $("#main").append($("<img>").attr("src", imageUrl))
+        });
+    });
 </script>
 
 </body>
