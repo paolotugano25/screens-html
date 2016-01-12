@@ -13,7 +13,14 @@
 
         img {
             display: block;
+            margin: 0 auto;
             max-width: 100%;
+        }
+
+        .test {
+            border-bottom: 1px solid darkgray;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -23,16 +30,18 @@
 <div id="main"></div>
 
 <script>
-    $.getJSON("/mug-test.json", function (response) {
+    var params = new URI().query(true);
+
+    $.getJSON("test.json", function (response) {
         $.each(response.list, function (index, value) {
-            var htmlUrl = new URI().path("mug.html").query({
+            var htmlUrl = new URI().path(params.path || "mug.html").query({
                 base64: base64.encode(JSON.stringify({
                     word: value.word,
                     meaning: value.definition
                 }))
             });
 
-            var div = $("<div>");
+            var div = $("<div>").attr("class", "test");
             var dimensions = $("<div>");
             var image = new Image();
             image.src = new URI().port(8891).path("").query({url: htmlUrl, force: true}).toString();
