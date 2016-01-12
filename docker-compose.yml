@@ -1,5 +1,5 @@
 manet:
-  build: quay.io/apeckham/manet:latest
+  image: quay.io/apeckham/manet:latest
   links:
     - nginx:nginx
   ports:
