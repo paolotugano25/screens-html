@@ -12,15 +12,8 @@
                 params = JSON.parse(base64.decode(params.base64));
             }
 
-            if (params.random) {
-                var response = $.ajax({url: "http://api.urbandictionary.com/v0/random", async: false});
-                var definition = response.responseJSON.list[0];
-                $("#word").text(definition.word);
-                $("#meaning").text(definition.definition);
-            } else {
-                $("#word").html(params.word);
-                $("#meaning").html(params.meaning);
-            }
+            $("#word").html(params.word);
+            $("#meaning").html(params.meaning);
 
             params.background = params.background || "backgrounds/background" + Math.floor((Math.random() * 23) + 1) + ".png";
             $("body").css("background-image", "url(" + params.background + ")");
