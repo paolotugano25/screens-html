@@ -8,9 +8,12 @@
     <style>
         body {
             background-color: lightgray;
+            text-align: center;
         }
 
         img {
+            display: block;
+            border: 1px solid black;
             max-width: 100%;
         }
     </style>
@@ -23,9 +26,24 @@
 <script>
     $.getJSON("/mug-test.json", function (response) {
         $.each(response.list, function (index, value) {
-            var htmlUrl = new URI().path("mug.html").query({base64: base64.encode(JSON.stringify({word: value.word, meaning: value.definition}))});
-            var imageUrl = new URI().port(8891).path("").query({url: htmlUrl, force: true}).toString();
-            $("#main").append($("<img>").attr("src", imageUrl))
+            var htmlUrl = new URI().path("mug.html").query({
+                base64: base64.encode(JSON.stringify({
+                    word: value.word,
+                    meaning: value.definition
+                }))
+            });
+
+            var div = $("<div>");
+            var dimensions = $("<div>");
+            var image = new Image();
+            image.src = new URI().port(8891).path("").query({url: htmlUrl, force: true}).toString();
+            image.onload = function () {
+                dimensions.text(image.naturalHeight + "✕" + image.naturalWidth +
+                        " (" + (image.naturalHeight / 300).toFixed(2) + "✕"
+                        + (image.naturalWidth / 300).toFixed(2) + " @ 300 dpi)");
+            };
+
+            $("#main").append(div.append(image, dimensions));
         });
     });
 </script>
