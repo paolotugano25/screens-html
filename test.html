@@ -44,6 +44,7 @@
             var div = $("<div>").attr("class", "test");
             var dimensions = $("<div>");
             var image = new Image();
+//            image.src = new URI("https://manet.herokuapp.com/").query({url: htmlUrl, force: true}).toString();
             image.src = new URI().port(8891).path("").query({url: htmlUrl, force: true}).toString();
             image.onload = function () {
                 dimensions.text(image.naturalHeight + "✕" + image.naturalWidth);
