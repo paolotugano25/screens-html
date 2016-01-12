@@ -1,0 +1,14 @@
+manet:
+  build: quay.io/apeckham/manet:latest
+  links:
+    - nginx:nginx
+  ports:
+    - "8891:8891"
+
+nginx:
+  image: nginx
+  ports:
+    - "80:80"
+  volumes:
+    - ./html:/usr/share/nginx/html
+    - ./etc/nginx:/etc/nginx
