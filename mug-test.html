@@ -13,7 +13,6 @@
 
         img {
             display: block;
-            border: 1px solid black;
             max-width: 100%;
         }
     </style>
@@ -43,7 +42,7 @@
                         + (image.naturalWidth / 300).toFixed(2) + " @ 300 dpi)");
             };
 
-            $("#main").append(div.append(image, dimensions));
+            $("#main").append(div.append($("<a>").attr("href", htmlUrl).append(image), dimensions));
         });
     });
 </script>
