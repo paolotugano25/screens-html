@@ -46,12 +46,10 @@
             var image = new Image();
             image.src = new URI().port(8891).path("").query({url: htmlUrl, force: true}).toString();
             image.onload = function () {
-                dimensions.text(image.naturalHeight + "✕" + image.naturalWidth +
-                        " (" + (image.naturalHeight / 300).toFixed(2) + "✕"
-                        + (image.naturalWidth / 300).toFixed(2) + " @ 300 dpi)");
+                dimensions.text(image.naturalHeight + "✕" + image.naturalWidth);
             };
 
-            $("#main").append(div.append($("<a>").attr("href", htmlUrl).append(image), dimensions));
+            $("#main").append(div.append($("<a>").attr({href: htmlUrl, target: "_blank"}).append(image), dimensions));
         });
     });
 </script>
