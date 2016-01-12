@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://cdn.jsdelivr.net/g/uri.js@1.17.0,jquery@2.1.4"></script>
+    <style>
+        body {
+            background-color: lightgray;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="main"></div>
+
+<script>
+    var htmlUrl = new URI().path("mug.html").query({word: "cv zv kjhvzc klxczv c lchz"});
+    var imageUrl = new URI().port(8891).path("").query({url: htmlUrl, force: true}).toString();
+    $("#main").html($("<img>").attr("src", imageUrl))
+</script>
+
+</body>
+</html>
